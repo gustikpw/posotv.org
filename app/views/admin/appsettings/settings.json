@@ -1,0 +1,21 @@
+/*
+  * Belum terpakai, tujuannya untuk pengaturan aplikasi
+*/
+
+"settings_data" : [
+  {
+    "dashboard_api" :
+    {
+      "api_link" : "http://localhost/posotv.org/api_search",
+      "dashboard_data" : "http://localhost/posotv.org/api_search/dashboard_data",
+      "cek_tunggakan" : "http://localhost/posotv.org/api_search/cek_tunggakan",
+      "cari_pelanggan_select2" : "http://localhost/posotv.org/api_search/cari_pelanggan?q=",
+    },
+    "app_settings" :
+    {
+      "invoice_key" : "@sandiinvoice#",
+      "customer_service" : "081354338084",
+      "invoice_terms" : "a:7:{s:5:\"batas\";s:20:\"    02 s/d 15 | 2017\";s:5:\"info1\";s:55:\"Pembayaran akan mulai tanggal 2 s/d 15 setiap bulannya.\";s:5:\"info2\";s:60:\"* Bawa kwitansi lama untuk pembayaran tunggakan selanjutnya.\";s:5:\"info3\";s:60:\"* Menunggak 2 (dua) bulan akan dilakukan pemutusan sementara\";s:5:\"info4\";s:51:\"  dan disambung kembali setelah menunasi tunggakan.\";s:5:\"info5\";s:31:\"* Syarat dan ketentuan berlaku.\";s:5:\"info6\";s:44:\"* Terima kasih telah membayar pada waktunya.\";}",
+    }
+  }
+];
