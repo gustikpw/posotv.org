@@ -12,7 +12,7 @@
                     <small>
                       PT. POSO MEDIA VISION
                     </small>
-                    <div id="sparkline1" class="m-b-sm"></div>
+                    <!-- <div id="sparkline1" class="m-b-sm"></div>
                     <div class="row">
                         <div class="col-xs-4">
                             <small class="stats-label">Pages / Visit</small>
@@ -27,11 +27,11 @@
                             <small class="stats-label">Last week</small>
                             <h4>432.021</h4>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
                 <div class="col-sm-4">
-                    <h1 class="m-b-xs">
+                    <!-- <h1 class="m-b-xs">
                         98,100
                     </h1>
                     <small>
@@ -52,7 +52,7 @@
                             <small class="stats-label">Last week</small>
                             <h4>862.044</h4>
                         </div>
-                    </div>
+                    </div> -->
 
 
                 </div>
@@ -78,7 +78,7 @@
                             <td>
                               <div class="dropdown">
                                 <a href="javascript:void(0)" class="text-info dropdown-toggle" id="menu1" data-toggle="dropdown">
-                                  <strong><span class="det1">0</span></strong> Total Pelanggan
+                                  <strong><span>More</span></strong> Details
                                   <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">

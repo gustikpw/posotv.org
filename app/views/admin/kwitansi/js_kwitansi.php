@@ -117,16 +117,25 @@ $(document).ready(function(){
 </script>
 
 <script>
+var tabel;
 $(document).ready(function(){
-  $('#table').DataTable({
-    pageLength: 10,
-    responsive: true
-  });
+   tabel = $('#table').DataTable({
+      ajax : {
+         url : "<?php echo site_url('kwitansi/files2')?>"
+      },
+      order: [ 1, "desc" ],
+      columnDefs:[
+         {
+            targets: [ -1 ],
+            orderable: false
+         }
+      ]
+   });
 });
 
 $(function(){
   getSelect();
-  files();
+  // files();
 });
 
 function getSelect() {
@@ -148,29 +157,15 @@ function regInvoice()
           $('[name="bulan_penagihan"]').val('');
           wilayah.val('').trigger('change');
           // $('[name="sandi"]').val('');
-          files();
+          reload_table();
           $('#ibox2').children('.ibox-content').toggleClass('sk-loading');
       },
       error: function (jqXHR, textStatus, errorThrown) {
+         $('#ibox2').children('.ibox-content').toggleClass('sk-loading');
         notif('Gagal mengambil data! <br>'+textStatus,'Error','error');
       }
     });
   }
-}
-
-function files()
-{
-  $.ajax({
-      url : "<?php echo site_url('kwitansi/files')?>",
-      type: "GET",
-      dataType: "JSON",
-      success: function(data) {
-        $('.dataFiles').html(data.files);
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      notif('Gagal mengambil data!','Error','error');
-    }
-  });
 }
 
 function hapusFile(id)
@@ -183,10 +178,10 @@ function hapusFile(id)
       success: function(data) {
         if (data.status) {
           notif('Berhasil menghapus kwitansi!','Sukses','warning');
-          files();
+          reload_table()
         } else {
           notif('Gagal menghapus data!','Error','error');
-          files();
+          reload_table()
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -194,6 +189,27 @@ function hapusFile(id)
       }
     });
   }
+}
+
+function deleteChache() {
+     $.ajax({
+       url : "<?php echo site_url('kwitansi/hapusTempAll')?>",
+       type: "POST",
+       dataType: "JSON",
+       success: function(data) {
+         if (data.status) {
+           notif('Berhasil menghapus kwitansi!','Sukses','warning');
+           reload_table();
+         }
+       },
+       error: function (jqXHR, textStatus, errorThrown) {
+         notif('Gagal menghapus cache!','Error','error');
+       }
+     });
+}
+
+function reload_table() {
+   tabel.ajax.reload(null,false);
 }
 </script>
 </body>

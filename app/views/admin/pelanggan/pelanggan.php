@@ -125,7 +125,7 @@
 
 <!-- Detail Modal -->
 <div class="modal inmodal" id="DetailModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog " ><!--style="width:60%"-->
+    <div class="modal-dialog" style="width:60%"><!---->
         <div class="modal-content animated flipInY">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>

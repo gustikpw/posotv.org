@@ -5,7 +5,7 @@ class Kwitansi extends CI_Controller {
   {
       parent::__construct();
       $this->load->model('kwitansi_model','kwitansi');
-			$this->load->helper(array('MY_ribuan'));
+		$this->load->helper(array('MY_ribuan'));
 			// $this->load->library('fpdf','ci_qr_code');
   }
 
@@ -142,7 +142,7 @@ class Kwitansi extends CI_Controller {
     }
 
     $kirim = array( 'company' => $profil,
-										'cust' => $data,
+							'cust' => $data,
                     'terms' => $this->_invoiceTerms(),
     );
     $this->load->view('admin/kwitansi/invoice_edit',$kirim);
@@ -151,36 +151,68 @@ class Kwitansi extends CI_Controller {
 		// echo json_encode($kirim);
 	}
 
-	public function files()
+	// public function files()
+	// {
+	// 	$asd = scandir(FCPATH.'assets/invoice/');
+	// 	$length = count($asd);
+	// 	$row = '';
+	// 	$status = FALSE;
+	// 	for ($i=2; $i < $length; $i++) {
+	// 		$fileurl = base_url('assets/invoice/').$asd[$i];
+	// 		$imageFileType = pathinfo($fileurl,PATHINFO_EXTENSION);
+	// 		if ($imageFileType == 'pdf') {
+	// 			$status = TRUE;
+	// 			$wilayah = substr($asd[$i],12,strlen($asd[$i]));
+	// 			$wilayah = str_replace('.pdf','',$wilayah);
+	// 			$row .= "<tr>";
+	// 			$row .= "<td>".str_replace('_',' ',$wilayah)."</td>";
+	// 			$row .= "<td>".substr($asd[$i],0,7)."</td>";
+	// 			$row .= "<td>
+	// 									<a class=\"btn btn-xs btn-info\" href=\"$fileurl\" target=\"_blank\"><i class=\"fa fa-eye\"></i> View</a>
+	// 									<a class=\"btn btn-xs btn-primary\" href=\"$fileurl\"><i class=\"fa fa-download\"></i> Download</a>
+	// 									<a class=\"btn btn-xs btn-danger\"  href=\"javascript:void(0)\" title=\"Hapus Kwitansi\" onclick=\"hapusFile('".$asd[$i]."')\"><i class=\"fa fa-trash\"></i> Delete</a>
+	// 								</td>";
+	// 			$row .= "</tr>";
+	// 		}
+	// 	}
+	// 	if ($status==TRUE) {
+	// 		$data['files'] = $row;
+	// 	} else {
+	// 		$data['files'] = "<tr><td colspan='3' class='text-center' style='font-style: italic'>Kwitansi masih kosong!</td></tr>";
+	// 	}
+	// 	echo json_encode($data);
+	// }
+
+	public function files2()
 	{
 		$asd = scandir(FCPATH.'assets/invoice/');
 		$length = count($asd);
-		$row = '';
+		$data = array();
 		$status = FALSE;
 		for ($i=2; $i < $length; $i++) {
+			$row = array();
 			$fileurl = base_url('assets/invoice/').$asd[$i];
 			$imageFileType = pathinfo($fileurl,PATHINFO_EXTENSION);
 			if ($imageFileType == 'pdf') {
 				$status = TRUE;
 				$wilayah = substr($asd[$i],12,strlen($asd[$i]));
 				$wilayah = str_replace('.pdf','',$wilayah);
-				$row .= "<tr>";
-				$row .= "<td>".str_replace('_',' ',$wilayah)."</td>";
-				$row .= "<td>".substr($asd[$i],0,7)."</td>";
-				$row .= "<td>
-										<a class=\"btn btn-xs btn-info\" href=\"$fileurl\" target=\"_blank\"><i class=\"fa fa-eye\"></i> View</a>
-										<a class=\"btn btn-xs btn-primary\" href=\"$fileurl\"><i class=\"fa fa-download\"></i> Download</a>
-										<a class=\"btn btn-xs btn-danger\"  href=\"javascript:void(0)\" title=\"Hapus Kwitansi\" onclick=\"hapusFile('".$asd[$i]."')\"><i class=\"fa fa-trash\"></i> Delete</a>
-									</td>";
-				$row .= "</tr>";
+				$row[]= str_replace('_',' ',$wilayah);
+				$row[]= substr($asd[$i],0,7);
+				$row[]= "	<a class=\"btn btn-xs btn-info\" href=\"$fileurl\" target=\"_blank\"><i class=\"fa fa-eye\"></i> View</a>
+									<a class=\"btn btn-xs btn-primary\" href=\"$fileurl\"><i class=\"fa fa-download\"></i> Download</a>
+									<a class=\"btn btn-xs btn-danger\"  href=\"javascript:void(0)\" title=\"Hapus Kwitansi\" onclick=\"hapusFile('".$asd[$i]."')\"><i class=\"fa fa-trash\"></i> Delete</a>";
+			}
+
+			if ($status==TRUE) {
+				$data[] = $row;
+			} else {
+				$data[] = "";
 			}
 		}
-		if ($status==TRUE) {
-			$data['files'] = $row;
-		} else {
-			$data['files'] = "<tr><td colspan='3' class='text-center' style='font-style: italic'>Kwitansi masih kosong!</td></tr>";
-		}
-		echo json_encode($data);
+
+		$output = array('data'=>$data);
+		echo json_encode($output);
 	}
 
 	public function hapusFile($namaFile)
@@ -192,6 +224,17 @@ class Kwitansi extends CI_Controller {
 			$this->kwitansi->delete_by($blnPenagihan);
 			// menghapus file pada server sesuai isi database
 			unlink($pathh);
+		}
+		echo json_encode(array("status" => TRUE));
+	}
+
+	public function hapusTempAll()
+	{
+		$dir = FCPATH.'assets/tempQr/img/*.png';
+		$files = glob($dir); // get all file names
+		foreach($files as $file){ // iterate files
+		  if(is_file($file))
+		    unlink($file); // delete file
 		}
 		echo json_encode(array("status" => TRUE));
 	}
@@ -243,7 +286,7 @@ class Kwitansi extends CI_Controller {
 		}
 
 		$data = array('data' => $row,
-									'hash' => $hash,
+							'hash' => $hash,
 		);
 		echo json_encode($data);
 	}
@@ -258,12 +301,13 @@ class Kwitansi extends CI_Controller {
 		$ket = $this->input->post('keterangan[]');
 
 		for ($i=0; $i < count($hash); $i++) {
-			$data = array('user' => $nama_kolektor,
-			'status' => 'Lunas',
-			'tgl_bayar' => date('Y-m-d'),
-			'keterangan' => $ket[$i],
+			$data = array(
+				'user' => $nama_kolektor,
+				'status' => 'Lunas',
+				'tgl_bayar' => date('Y-m-d'),
+				'keterangan' => $ket[$i],
 			);
-			if ($status[$i] != 'Lunas') { // akukan input data hanya jika invoice berstatus belum lunas
+			if ($status[$i] != 'Lunas') { // lakukan input data hanya jika invoice berstatus belum lunas
 				$this->kwitansi->updateSetoran(array('kode_invoice' => $kode_invoice[$i], 'hash' => $hash[$i], ), $data);
 			}
 		}

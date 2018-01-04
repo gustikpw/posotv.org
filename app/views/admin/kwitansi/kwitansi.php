@@ -25,6 +25,13 @@
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                       <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                       <li><a href="javascript:void(0)" onclick="deleteChache()" title="Hapus file sampah setiap kali membuat kwitansi"><span class="text-danger"><i class="fa fa-recycle"></i> Clear Image Cache</span></a>
+                       </li>
+                    </ul>
                     <a class="close-link">
                         <i class="fa fa-times"></i>
                     </a>

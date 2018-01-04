@@ -98,11 +98,11 @@ function Kop($cust,$company,$terms)
   $info4 = '  dan disambung kembali setelah menunasi tunggakan.';
   $info5 = '* Syarat dan ketentuan berlaku.';
   $info6 = '* Terima kasih telah membayar pada waktunya.';
-  $termsxxx = "Pembayaran akan mulai tanggal 2 s/d 15 setiap bulannya.
-                * Bawa kwitansi lama untuk pembayaran tunggakan selanjutnya.
-                * Menunggak 2 (dua) bulan akan dilakukan pemutusan sementara
-                  dan disambung kembali setelah menunasi tunggakan.
-                * Syarat dan ketentuan berlaku.";
+  $termsxx = "Pembayaran akan mulai tanggal 2 s/d 15 setiap bulannya.";
+                // * Bawa kwitansi lama untuk pembayaran tunggakan selanjutnya.
+                // * Menunggak 2 (dua) bulan akan dilakukan pemutusan sementara
+                //   dan disambung kembali setelah menunasi tunggakan.
+                // * Syarat dan ketentuan berlaku.";
   $GLOBALS['namafile'] = $plgn['namafile'];
 
   $xkanan = 65;
@@ -193,8 +193,8 @@ function Kop($cust,$company,$terms)
   $this->setX(5);  $this->cell($xkiri,5,'Bulan Penagihan : '.$plgn['bulan_penagihan'],0,0,'R',0);
   $this->setFont('Arial','',7);
   $this->setFillColor(255,255,255);
-  // $this->setX($xkanan);  $this->cell(45,4,$terms['info1'],0,1,'L',0); // Robekan Bagian Kanan1
-  $this->setX($xkanan);  $this->MultiCell(45,4,$termsxx); // Robekan Bagian Kanan1
+  $this->setX($xkanan);  $this->cell(45,4,$terms['info1'],0,1,'L',0); // Robekan Bagian Kanan1
+  // $this->setX($xkanan);  $this->MultiCell(45,4,$termsxx); // Robekan Bagian Kanan1
   // $this->MultiCell(0,5,$txt)
   $this->setFont('Arial','B',9);
   $this->setFillColor(255,255,255);
