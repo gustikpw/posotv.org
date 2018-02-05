@@ -113,6 +113,104 @@ class Api_model extends CI_Model {
                             ")->result();
   }
 
+  /* UNTUK CHART.JS
+   * Line Chart
+   *
+   */
+
+   public function get_setoran_summary($tahun,$bulan,$user)
+   {
+      return $this->db->query("SELECT SUBSTRING(t.tgl_bayar,1,7) AS thn_bln, t.kolektor, SUM(t.tarif) AS subtotal
+            FROM v_temp_invoice t
+            WHERE t.`status` = 'Lunas'
+            AND YEAR(t.tgl_bayar) = '$tahun'
+            AND MONTH(t.tgl_bayar) = '$bulan'
+            AND t.kolektor = '$user'
+            GROUP BY t.user")->row();
+   }
+
+   public function get_user() // get kolektor
+   {
+      return $this->db->query("SELECT t.kolektor
+            FROM v_temp_invoice t
+            GROUP BY t.user")->result();
+   }
+
+   public function total_setoran_by($bulan)
+   {
+      return $this->db->query("SELECT SUBSTR(t.tgl_bayar,1,7) AS bulan, SUM(t.tarif) AS total
+         FROM v_temp_invoice t
+         WHERE t.tgl_bayar LIKE '$bulan%'")->row();
+   }
+
+   public function get_max_setoran()
+   {
+      return $this->db->query('SELECT b.kolektor,MAX(b.subtotal) AS max_setoran, b.bulan
+         FROM v_setoran_bulan_ini b')->row();
+   }
+
+   /* PEMUTUSAN
+    * Jika menunggak lebih dari 2 bulan
+    */
+
+   public function cek_pemutusan()
+   {
+      return $this->db->query("SELECT * FROM v_tunggakan ORDER BY banyak_tunggakan DESC")->result();
+   }
+
+
+   /* Mengambil pengaturan bernilai serialize
+    *
+    */
+
+   public function getSettings_serial($option_name)
+   {
+     $query = $this->db->query("SELECT option_name,option_value FROM settings WHERE option_name='$option_name' ");
+     return $query;
+   }
+
+   public function updateSettings($where, $data)
+   {
+      $this->db->update('settings', $data, $where);
+      return $this->db->affected_rows();
+   }
+
+  // MENCARI PERSENTASE TARGET / PENCAPAIAN SETORAN
+  public function get_target()
+  {
+    $sql_target = "SELECT SUM(i.tarif) AS target, DATE(NOW()) AS bulan
+      FROM v_temp_invoice i
+      WHERE i.`status` != 'Lunas'";
+
+    $sql_capai = "SELECT SUM(i.tarif) AS capai, DATE(NOW()) AS bulan
+      FROM v_temp_invoice i
+      WHERE i.`status` = 'Lunas'
+      AND YEAR(i.tgl_bayar) = YEAR(NOW())
+      AND MONTH(i.tgl_bayar) = MONTH(NOW())";
+
+    $t = $this->db->query($sql_target)->row();
+    $c = $this->db->query($sql_capai)->row();
+
+    return array('target' => $t, 'capai' => $c);
+  }
+
+  public function cek_statistik($bulan)
+  {
+    return $this->db->query("SELECT * FROM statistik_bulanan WHERE bulan LIKE '$bulan%'");
+  }
+
+  public function save_statistik($data)
+  {
+    $this->db->insert('statistik_bulanan', $data);
+    return $this->db->insert_id();
+  }
+
+  public function update_statistik($where, $data)
+  {
+    $this->db->update('statistik_bulanan', $data, $where);
+    return $this->db->affected_rows();
+  }
+
 // CONTOH MULTY DATABASE
   public function dbdua()
   {

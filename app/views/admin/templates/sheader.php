@@ -13,7 +13,7 @@
     <?php if ($active !='profil_perusahaan'): ?>
       <link href="<?php echo base_url('assets/inspinia271/css/plugins/dataTables/datatables.min.css') ?>" rel="stylesheet">
     <?php endif; ?>
-    <?php if ($active =='karyawan' || $active =='pengaduan' || $active =='pelanggan' || $active =='perbaikan_gangguan' || $active == 'kwitansi'): ?>
+    <?php if ($active =='karyawan' || $active =='pengaduan' || $active =='pelanggan' || $active =='perbaikan_gangguan' || $active == 'kwitansi' || $active == 'pemutusan'): ?>
       <link href="<?php echo base_url('assets/inspinia271/css/plugins/datapicker/datepicker3.css') ?>" rel="stylesheet">
     <?php endif; ?>
     <?php if ($active =='pengaduan' || $active =='perbaikan_gangguan' || $active == 'pelanggan' || $active == 'kwitansi' || $active == 'kolektor' ): ?>

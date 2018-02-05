@@ -61,7 +61,7 @@
                 <span class="pull-right">
                   <a href="#" class="btn btn-primary" onclick="regInvoice()"  id="step4"><i class="fa fa-hdd-o"></i> Register Invoice</a>
                 </span>
-                Daftarkan invoice dahulu! <br><br>
+                Lama registrasi tergantung banyaknya jumlah pelanggan! Bisa >30 detik<br><br>
               </div>
             </div>
 

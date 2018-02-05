@@ -11,7 +11,7 @@
 <!-- Chart.js -->
 <script src="<?= base_url('assets/inspinia271/js/plugins/chartJs/Chart.min.js') ?>"></script>
 
-<script>
+<!-- <script>
 $(document).ready(function() {
 
     var sparklineCharts = function(){
@@ -58,45 +58,48 @@ $(document).ready(function() {
     var data2 = [
         [0,0],[1,2],[2,7],[3,4],[4,11],[5,4],[6,2],[7,5],[8,11],[9,5],[10,4],[11,1],[12,5],[13,2],[14,5],[15,2],[16,0]
     ];
-    $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [
-                data1,  data2
-            ],
-            {
-                series: {
-                    lines: {
-                        show: false,
-                        fill: true
-                    },
-                    splines: {
-                        show: true,
-                        tension: 0.4,
-                        lineWidth: 1,
-                        fill: 0.4
-                    },
-                    points: {
-                        radius: 0,
-                        show: true
-                    },
-                    shadowSize: 2
-                },
-                grid: {
-                    hoverable: true,
-                    clickable: true,
-
-                    borderWidth: 2,
-                    color: 'transparent'
-                },
-                colors: ["#1ab394", "#1C84C6"],
-                xaxis:{
-                },
-                yaxis: {
-                },
-                tooltip: false
-            }
-    );
 
 });
-</script>
+</script> -->
+
+<!-- <script>
+    $(document).ready(function() {
+
+        var lineData = {
+            labels: ["January", "February"],
+            datasets: [
+                {
+                    label: "Mama Tasya",
+                    backgroundColor: "rgba(26,179,148,0.5)",
+                    borderColor: "rgba(26,179,148,0.7)",
+                    pointBackgroundColor: "rgba(26,179,148,1)",
+                    pointBorderColor: "#fff",
+                    data: [28, 48]
+                },
+                {
+                    label: "Mama Mendi",
+                    backgroundColor: "rgba(220,220,220,0.5)",
+                    borderColor: "rgba(220,220,220,1)",
+                    pointBackgroundColor: "rgba(220,220,220,1)",
+                    pointBorderColor: "#fff",
+                    data: [65, 59]
+                }
+            ]
+        };
+
+        console.log(lineData);
+
+        // var lineOptions = {
+        //     responsive: true
+        // };
+        //
+        //
+        // var ctx = document.getElementById("lineChart").getContext("2d");
+        // new Chart(ctx, {type: 'line', data: lineData, options:lineOptions});
+
+    });
+</script> -->
+
 <script>
 $(document).ready(function(){
 
@@ -106,8 +109,9 @@ $(document).ready(function(){
       dataType: "JSON",
       success: function(data)
       {
-         piedata = data.doughnutchart_data;
-         donat(piedata);
+         // console.log(data.line_chart_data);
+         // piedata = ;
+         // linedata = ;
          // Pelanggan
          $(".det1").text(data.pelanggan.total_pelanggan);
          $(".det2").text(data.pelanggan.pelanggan_aktif);
@@ -118,7 +122,22 @@ $(document).ready(function(){
          // Wilayah
          $(".det5").text(data.total_wilayah);
          $(".det6").html(data.wilayah);
+         $(".det8").text(data.chart_des.total_setoran.total);
+         $(".det9").text(data.chart_des.total_setoran.bulan);
+         $(".det10").text(data.chart_des.max_setoran.kolektor);
+         $(".det11").text(data.chart_des.max_setoran.total);
+         $(".det12").text(data.chart_des.update_on);
+         $(".det13").text(data.chart_des.last_month_summary.bulan);
+         $(".det14").text(data.chart_des.last_month_summary.total);
+         // Persentase Pencapaian
+         $(".det15").html(data.pencapaian.target);
+         $(".det16").html(data.pencapaian.tercapai);
+         $(".det17").html(data.pencapaian.tercapai_percent);
+         $(".det18").html(data.pencapaian.margin);
+
          // Chart
+         donat(data.doughnutchart_data);
+         mylineChart(data.line_chart_data);
 
       }
    });
@@ -133,11 +152,37 @@ function donat(isi) {
       }
    };
 
-   var ctx = document.getElementById("doughnutChart").getContext("2d");
-   new Chart(ctx, {
+   var ctx2 = document.getElementById("doughnutChart").getContext("2d");
+   new Chart(ctx2, {
      type: 'doughnut',
      data: isi,
      options: myoption
+   });
+}
+
+function mylineChart(lineData) {
+   lineOptions = {
+       responsive: true,
+       animation:{
+           animateScale:true
+       },
+       scales: {
+            yAxes: [{
+                ticks: {
+                    // Include a dollar sign in the ticks
+                    callback: function(value, index, values) {
+                        return 'Rp ' + value;
+                    }
+                }
+            }]
+        }
+   };
+
+   var ctx = document.getElementById("lineChart").getContext("2d");
+   new Chart(ctx, {
+      type: 'line',
+      data: lineData,
+      options:lineOptions
    });
 }
 

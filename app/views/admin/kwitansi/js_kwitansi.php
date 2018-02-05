@@ -117,7 +117,7 @@ $(document).ready(function(){
 </script>
 
 <script>
-var tabel;
+var tabel, start_time;
 $(document).ready(function(){
    tabel = $('#table').DataTable({
       ajax : {
@@ -152,9 +152,16 @@ function regInvoice()
         data : $('#formKwitansi').serialize(),
         type: "POST",
         dataType: "JSON",
+        beforeSend : function(){
+          // Menampilkan waktu loading
+          start_time = new Date().getTime();
+        },
         success: function(data) {
-          notif(data.pesan,data.title,data.msgtype);
-          $('[name="bulan_penagihan"]').val('');
+          // Time load ajax
+          request_time = new Date().getTime() - start_time;
+          time_msg = data.pesan + ' Waktu : '+ waktu(request_time) +' detik';
+          notif(time_msg,data.title,data.msgtype);
+          // $('[name="bulan_penagihan"]').val('');
           wilayah.val('').trigger('change');
           // $('[name="sandi"]').val('');
           reload_table();
@@ -198,7 +205,7 @@ function deleteChache() {
        dataType: "JSON",
        success: function(data) {
          if (data.status) {
-           notif('Berhasil menghapus kwitansi!','Sukses','warning');
+           notif('Berhasil menghapus cache kwitansi!','Sukses','warning');
            reload_table();
          }
        },
@@ -206,6 +213,13 @@ function deleteChache() {
          notif('Gagal menghapus cache!','Error','error');
        }
      });
+}
+
+function waktu(mili) {
+  var menit = Math.floor(mili / 60000);
+  var detik = ((mili % 60000) / 1000).toFixed(0);
+  res = menit + ":" + (detik < 10 ? '0' : '') + detik;
+  return res;
 }
 
 function reload_table() {

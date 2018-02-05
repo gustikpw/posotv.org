@@ -1,0 +1,42 @@
+{
+   "perihal":"Surat Penyampaian Pemutusan Sementara",
+   "nama":"N. Tandawuya",
+   "alamat":"Jl. Tabatoki Kel. Kawua",
+   "kode_pelanggan":"KWA002",
+   "pembuka":"Dengan ini kami sampaikan bahwa sehubungan dengan adanya tunggakan Iuran Tv Kabel, maka dengan terpaksa kami akan mengadakan pemutusan sementara pada jaringan Tv Kabel.",
+   "rincian": {
+      "total_tunggakan":"Rp.120.000",
+      "periode":"September 2017 s/d Desember 2017",
+      "banyak_tunggakan":"3 Bulan"
+   },
+   "detail":[
+      {
+         "bulan_penagihan":"2017-09-02",
+         "kode_invoice":"KWA1709176911",
+         "tarif":"30000",
+         "link_qr":"http://localhost/assets/tempQr/img/f5271707a160ce5612f153c89671a285.png"
+      },
+      {
+         "bulan_penagihan":"2017-09-02",
+         "kode_invoice":"KWA1709176911",
+         "tarif":"30000",
+         "link_qr":"http://localhost/assets/tempQr/img/f5271707a160ce5612f153c89671a285.png"
+      },
+      {
+         "bulan_penagihan":"2017-09-02",
+         "kode_invoice":"KWA1709176911",
+         "tarif":"30000",
+         "link_qr":"http://localhost/assets/tempQr/img/f5271707a160ce5612f153c89671a285.png"
+      }
+   ],
+   "keterangan": {
+     "ket1":"-	Pemutusan akan dilaksanakan pada tanggal 22 Desember 2017  bila tunggakan belum dilunasi.",
+     "ket2":"- Jaringan Tv Kabel akan disambung kembali setelah melunasi tunggakannya.",
+     "ket3":"-	Bila pemutusan terjadi 2 kali berturut – turut, maka akan diadakan pemutusan selamanya, dan akan dilayani sebagai pelanggan baru ( pasang baru )",
+     "ket4":"-	Untuk informasi pembayaran Iuran, dapat menghubungi bagian kolektor diwilayahnya masing – masing atau dapat diantar langsung ke Studio Poso Tv."
+  },
+  "penutup":"Demikian surat penyampaian pemutusan ini kami sampaikan, atas perhatiannya diucapkan terimakasih.",
+  "tanggal_surat":"Kawua, 19 Desember  2017",
+  "pimpinan":"I Gusti Ngurah Abs,SH",
+  "jabatan":"Direktur Utama"
+ }

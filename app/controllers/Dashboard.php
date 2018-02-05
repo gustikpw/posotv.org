@@ -23,7 +23,7 @@ class Dashboard extends CI_Controller {
 		if ($this->session->level=='administrator' || $this->session->level=='kolektor' || $this->session->level=='teknisi') {
 			// validasi segmen
 			$cekSessionSegmen = array(
-				array('','profil_perusahaan','bagian','jabatan','karyawan','wilayah','status','tarif','pelanggan','jenis_gangguan','pengaduan','perbaikan_gangguan','kwitansi','kolektor','setoran_kolektor','tunggakan','appsettings','dashboard','sms_inbox'),
+				array('','profil_perusahaan','bagian','jabatan','karyawan','wilayah','status','tarif','pelanggan','jenis_gangguan','pengaduan','perbaikan_gangguan','kwitansi','kolektor','setoran_kolektor','tunggakan','appsettings','dashboard','sms_inbox','pemutusan'),
 				array('','setoran'),
 				array('','perbaikan','jenis_gangguan','pengaduan','perbaikan_gangguan'),
 			);

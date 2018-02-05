@@ -1,7 +1,7 @@
-<script src="<?php echo base_url('assets/inspinia271/js/plugins/dataTables/datatables.min.js') ?>"></script>
-<script src="<?php echo base_url('assets/inspinia271/js/plugins/bootstrapTour/bootstrap-tour.min.js') ?>"></script>
-<script src="<?php echo base_url('assets/inspinia271/js/plugins/datapicker/bootstrap-datepicker.js') ?>"></script>
-<script src="<?php echo base_url('assets/inspinia271/js/plugins/select2/select2.full.min.js') ?>"></script>
+<script src="<?=base_url('assets/inspinia271/js/plugins/dataTables/datatables.min.js') ?>"></script>
+<script src="<?=base_url('assets/inspinia271/js/plugins/bootstrapTour/bootstrap-tour.min.js') ?>"></script>
+<script src="<?=base_url('assets/inspinia271/js/plugins/datapicker/bootstrap-datepicker.js') ?>"></script>
+<script src="<?=base_url('assets/inspinia271/js/plugins/select2/select2.full.min.js') ?>"></script>
 <!-- <script src="<?php //echo base_url('assets/inspinia271/js/plugins/chosen/chosen.jquery.js') ?>"></script> -->
 
 <script>
@@ -12,9 +12,9 @@ $(function(){
 });
 
 function getSelect() {
-  $('[name="wilayah"]').load("<?php echo site_url('getselect/pilih_mul/wilayah/id_wilayah/wilayah')?>");
-  $('[name="tarif"]').load("<?php echo site_url('getselect/pilih_mul_dua/tarif/id_tarif/tarif/keterangan')?>");
-  $('[name="status"]').load("<?php echo site_url('getselect/pilih_mul/status/id_status/status')?>");
+  $('[name="wilayah"], [name="lap_wilayah"]').load("<?=site_url('getselect/pilih_mul/wilayah/id_wilayah/wilayah')?>");
+  $('[name="tarif"], [name="lap_tarif"]').load("<?=site_url('getselect/pilih_mul_dua/tarif/id_tarif/tarif/keterangan')?>");
+  $('[name="status"], [name="lap_status"]').load("<?=site_url('getselect/pilih_mul/status/id_status/status')?>");
 }
 
 var wilayah = $('[name="wilayah"]').select2({
@@ -31,6 +31,11 @@ var zstatus = $('[name="status"]').select2({
   placeholder : "Pilih Status Berlangganan",
   width : "100%",
   // dropdownParent : $('#myModal')
+});
+var lapWilayah = $('[name="lap_wilayah"]').select2({
+  placeholder : "Pilih Wilayah Pelanggan Berdomisili",
+  width : "100%",
+  // dropdownParent : $('.myModal')
 });
 
 var table,pdfdata;
@@ -59,7 +64,7 @@ $(document).ready(function(){
     order: [], //Initial no order.
     // Load data for the table's content from an Ajax source
     ajax: {
-        url: "<?php echo site_url('pelanggan/ajax_list')?>",
+        url: "<?=site_url('pelanggan/ajax_list')?>",
         type: "POST",
         data : function ( d ) {
            pdf_data = d;
@@ -110,9 +115,14 @@ $(document).ready(function(){
                 tespdf();
              }
           },
+          { text: 'Laporan',
+             action: function ( e, dt, node, config) {
+               $('#myModal_laporan').modal('show');
+             }
+          },
           {extend: 'csv'},
-          {extend: 'excel', title: '<?php echo $active; ?>'},
-          {extend: 'pdf', title: '<?php echo $active; ?>',
+          {extend: 'excel', title: '<?=$active; ?>'},
+          {extend: 'pdf', title: '<?=$active; ?>',
             exportOptions: {
               columns: [ 1,2,3,4,5,6,7 ]
             }
@@ -223,7 +233,7 @@ function reload_table(){
 
 function getCode(wil) {
   $.ajax({
-      url : "<?php echo site_url('pelanggan/getCode/')?>" + wil,
+      url : "<?=site_url('pelanggan/getCode/')?>" + wil,
       type: "GET",
       dataType: "JSON",
       success: function(data) {
@@ -245,7 +255,7 @@ function adds()
     $('#myModal').modal('show'); // show bootstrap modal
     $('.help-block').empty();
     $('.fokus').focus();
-    $('.modal-title').text('Add <?php echo ucwords(str_replace('_',' ',$active)); ?>'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Add <?=ucwords(str_replace('_',' ',$active)); ?>'); // Set Title to Bootstrap modal title
 }
 
 function save()
@@ -255,9 +265,9 @@ function save()
   $('#btnSave').attr('disabled',true); //set button disable
   var url;
   if(save_method == 'add') {
-    url = "<?php echo site_url('pelanggan/save_pelanggan')?>";
+    url = "<?=site_url('pelanggan/save_pelanggan')?>";
   } else {
-    url = "<?php echo site_url('pelanggan/update_pelanggan')?>";
+    url = "<?=site_url('pelanggan/update_pelanggan')?>";
   }
   // ajax adding data to database
   $.ajax({
@@ -298,7 +308,7 @@ function edits(id)
   wilMethod='off';
   $('#form')[0].reset(); // reset form on modals
   $.ajax({
-      url : "<?php echo site_url('pelanggan/get_edit/')?>" + id,
+      url : "<?=site_url('pelanggan/get_edit/')?>" + id,
       type: "GET",
       dataType: "JSON",
       success: function(data) {
@@ -315,7 +325,7 @@ function edits(id)
         $('[name="tgl_pasang"]').val(data.tgl_pasang);
         $('[name="foto"]').val(data.foto);
         $('#myModal').modal('show');
-        $('.modal-title').text('Edit <?php echo ucwords(str_replace('_',' ',$active)); ?>');
+        $('.modal-title').text('Edit <?=ucwords(str_replace('_',' ',$active)); ?>');
     },
     error: function (jqXHR, textStatus, errorThrown) {
       notif('Gagal mengambil data! \n'+errorThrown,'Error','error');
@@ -328,7 +338,7 @@ function deletes(id)
   if(confirm('Are you sure delete this data?'))
   {
     $.ajax({
-      url : "<?php echo site_url('pelanggan/delete_pelanggan')?>/"+id,
+      url : "<?=site_url('pelanggan/delete_pelanggan')?>/"+id,
       type: "POST",
       dataType: "JSON",
       success: function(data) {
@@ -347,7 +357,7 @@ function deletes(id)
 function views(id)
 {
   $.ajax({
-      url : "<?php echo site_url('pelanggan/vget_edit/')?>" + id,
+      url : "<?=site_url('pelanggan/vget_edit/')?>" + id,
       type: "GET",
       dataType: "JSON",
       success: function(data) {
@@ -361,12 +371,19 @@ function views(id)
         $('.v8').text(data.telp);
         $('.v9').text(data.foto);
         $('#DetailModal').modal('show');
-        $('.modal-title').text('Detail <?php echo ucwords(str_replace('_',' ',$active)); ?>');
+        $('.modal-title').text('Detail <?=ucwords(str_replace('_',' ',$active)); ?>');
     },
     error: function (jqXHR, textStatus, errorThrown) {
       notif('Gagal mengambil data!','Error','error');
     }
   });
+}
+
+function get_laporan() {
+  kodewil = lapWilayah.val();
+  status = '';
+  link = "<?=site_url()?>laporan/pelanggan?wilayah="+kodewil+"&status="+status;
+  window.open(link,'','width=800,height=600');
 }
 
 

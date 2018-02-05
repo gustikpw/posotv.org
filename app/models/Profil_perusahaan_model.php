@@ -34,19 +34,4 @@ class Profil_perusahaan_model extends CI_Model {
     return $this->db->affected_rows();
   }
 
-  // public function delete_by_id($id)
-  // {
-  //   $this->db->where('id', $id);
-  //   $this->db->delete('info_lembaga');
-  // }
-
-  // public function v_get_by_id($id)
-  // {
-  //   $this->db->from('v_info_lembaga');
-  //   $this->db->where('id',$id);
-  //   $query = $this->db->get();
-  //
-  //   return $query->row();
-  // }
-
 }

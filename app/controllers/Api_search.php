@@ -1,11 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set("Asia/Makassar");
+
 class Api_search extends CI_Controller {
 
 	function __construct()
   {
       parent::__construct();
 			$this->load->model('api_model','api');
-			$this->load->helper('MY_ribuan');
+			$this->load->helper(array('MY_ribuan','MY_bulan'));
   }
 
 	public function index()
@@ -361,6 +363,7 @@ class Api_search extends CI_Controller {
 			'pelanggan' => $pelanggan,
 			'total_wilayah' => $this->_total_wilayah()->total_wilayah,
 			'wilayah' => $wilayah,
+			'pencapaian' => $this->_pencapaian(),
 			// Untuk DoughnutChart
 			'doughnutchart_data' => array(
 				'labels' => $labels,
@@ -369,12 +372,149 @@ class Api_search extends CI_Controller {
 					'backgroundColor' => $bgColor,
 					'hoverBackgroundColor' => $hovColor,
 				))
-			)
+			),
+			'line_chart_data' => $this->_setoran_summary(),
+			'chart_des' => array(
+				'total_setoran' => $this->_total_setoran_perbulan(),
+				'max_setoran' => $this->_max_setoran(),
+				'update_on' => date('d.m.Y'),
+				'last_month_summary' => $this->_last_month_summary(),
+			),
 		);
 
 		echo json_encode($output);
 	}
 
+	private function _setoran_summary()
+	{
+		$tahun = date('Y');
+		$bulan = 4;
+		$res_user = $this->api->get_user();
+		foreach ($res_user as $u) {
+			$user = ($u->kolektor != null) ? $u->kolektor : 'Unknown';
+			for ($bln=1; $bln <= $bulan; $bln++) {
+				$ro = $this->api->get_setoran_summary($tahun,$bln,$user);
+				ini_set('display_errors', 0); // jika setoran ganjil maka terjadi error. fungsi ini utk mematikannya
+				$data[$bln-1] = ($ro->subtotal != NULL) ? $ro->subtotal : 0 ;
+			}
+
+			$r = rand(67,190);
+			$g = rand(110,190);
+			$b = rand(100,190);
+			$datasets[] = array(
+					'label' => $user,
+					'backgroundColor' => "rgba($r,$g,$b,0.5)",
+					'borderColor' => "rgba($r,$g,$b,0.7)",
+					'pointBackgroundColor' => "rgba($r,$g,$b,1)",
+					'pointBorderColor' => '#fff',
+					'data' => $data,
+			);
+		}
+		ini_set('display_errors', 0); // jika setoran ganjil maka terjadi error. fungsi ini utk mematikannya
+
+		for ($x=1; $x <= $bulan ; $x++) {
+			$labels[] = bulan($x);
+		}
+
+		$output = array(
+			'labels' => $labels,
+			'datasets' => $datasets,
+		);
+
+		return $output;
+	}
+
+	private function _total_setoran_perbulan()
+	{
+		$bulan = date('Y-m');
+		$bln = (int) date('m');
+		$q = $this->api->total_setoran_by($bulan);
+		return array('bulan' => bulan($bln), 'total' => 'IDR '.ribuan($q->total));
+	}
+
+	private function _max_setoran()
+	{
+		$q = $this->api->get_max_setoran();
+		return array('kolektor' => ucwords($q->kolektor), 'bulan' => bulan((int)substr($q->bulan,5,2)), 'total' => 'IDR '.ribuan($q->max_setoran));
+	}
+
+	private function _last_month_summary()
+	{
+		$d=strtotime("-1 Months"); // Last month
+		$bulan = date('Y-m',$d);
+		$thn = (int) substr($bulan,0,4);
+		$bln = (int) substr($bulan,5,2);
+		$q = $this->api->total_setoran_by($bulan);
+		$total = ($q->total == null) ? 0 : $q->total ;
+		$data = array(
+			'bulan' => bulan($bln).' '.$thn,
+			'total' => 'IDR '.ribuan($total)
+		);
+		return $data;
+	}
+
+	private function _pencapaian()
+	{
+		$q = $this->api->get_target();
+		$target = $q['target']->target;
+		$capai = $q['capai']->capai;
+
+		$rate_success	= 100 - ((($target - $capai) / $target) * 100 );
+		$rate_margin	= ((($target - $capai) / $target ) * 100);
+
+		$msg = '';
+		if ($rate_success >= 90) {
+			$msg = "<div class=\"stat-percent font-bold text-navy\">".round($rate_success,2)."% <i class=\"fa fa-bolt\"></i></div>";
+		} elseif ($rate_success >= 80 && $rate_success < 90) {
+			$msg = "<div class=\"stat-percent font-bold text-success\">".round($rate_success,2)."% <i class=\"fa fa-bolt\"></i></div>";
+		} elseif ($rate_success >= 70 && $rate_success < 80) {
+			$msg = "<div class=\"stat-percent font-bold text-warning\">".round($rate_success,2)."% <i class=\"fa fa-bolt\"></i></div>";
+		} elseif ($rate_success < 70) {
+			$msg = "<div class=\"stat-percent font-bold text-danger\">".round($rate_success,2)."% <i class=\"fa fa-bolt\"></i></div>";
+		}
+
+		$msg1 = '';
+		if ($rate_margin <= 10) {
+			$msg1 = "<div class=\"stat-percent font-bold text-navy\">".round($rate_margin,2)."% <i class=\"fa fa-bolt\"></i></div>";
+		} elseif ($rate_margin > 10 && $rate_margin <= 20) {
+			$msg1 = "<div class=\"stat-percent font-bold text-success\">".round($rate_margin,2)."% <i class=\"fa fa-bolt\"></i></div>";
+		} elseif ($rate_margin > 20 && $rate_margin <= 80) {
+			$msg1 = "<div class=\"stat-percent font-bold text-warning\">".round($rate_margin,2)."% <i class=\"fa fa-bolt\"></i></div>";
+		} elseif ($rate_margin > 80) {
+			$msg1 = "<div class=\"stat-percent font-bold text-danger\">".round($rate_margin,2)."% <i class=\"fa fa-bolt\"></i></div>";
+		}
+
+    // Update statistik ke database
+		$bulan = date('Y-m');
+		$cek_stat = $this->api->cek_statistik($bulan);
+		$data = array(
+			'bulan' => date('Y-m-d'),
+			'target' => $target,
+			'capaian' => $capai,
+			'rate_success' => round($rate_success,2),
+			'rate_margin' => round($rate_margin,2)
+		);
+
+		$jml = $cek_stat->num_rows();
+		if ($jml == 0) {
+			$save = $this->api->save_statistik($data);
+		} elseif ($jml > 0) {
+			$id = $cek_stat->row();
+			$update = $this->api->update_statistik(array('id_statistik' => $id->id_statistik), $data);
+		}
+
+    // Return ke dashboard
+		$ret = array(
+			'target' => ribuan($target),
+			'tercapai' => ribuan($capai),
+			'tercapai_percent' => $msg,
+			'margin' => $msg1
+		);
+
+		return $ret;
+	}
+
+  
 	/*
 	|
 	|
@@ -546,6 +686,49 @@ class Api_search extends CI_Controller {
 			}
 		}
 
+	}
+
+	private function _setoran_summary2()
+	{
+		// $labels	= array("","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+		$weekly	= $this->api->get_setoran_summary('yearweek');
+		$monthly	= $this->api->get_setoran_summary('yearmonth');
+
+		foreach ($weekly as $w) {
+			$labels[] = "Week $w->minggu";
+			$dataw[]	= (int) $w->subtotal;
+		}
+
+		foreach ($monthly as $m) {
+			$datam[] = (int) $m->subtotal;;
+		}
+
+		$output = array(
+			'labels' => $labels,
+			'datasets' => array(
+				array(
+					'label' => 'Weekly',
+					'backgroundColor' => 'rgba(26,179,148,0.5)',
+					'borderColor' => 'rgba(26,179,148,0.7)',
+					'pointBackgroundColor' => 'rgba(26,179,148,1)',
+					'pointBorderColor' => '#fff',
+					'data' => $dataw,
+					// 'data' => [30000,40000,50000,60000,20000],
+				),
+				// array(
+				// 	'label' => 'Monthly',
+				// 	'backgroundColor' => 'rgba(220,220,220,0.5)',
+				// 	'borderColor' => 'rgba(220,220,220,1)',
+				// 	'pointBackgroundColor' => 'rgba(220,220,220,1)',
+				// 	'pointBorderColor' => '#fff',
+				// 	'data' => $datam,
+				// 	// 'data' => [60000,60000,60000,60000,60000],
+				// ),
+			),
+		);
+
+		return $output;
+		// print_r($weekly);
 	}
 
 }

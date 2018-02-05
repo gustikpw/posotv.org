@@ -57,7 +57,7 @@ $(document).ready(function(){
           $(".v6").text(data.detail_pelanggan.status);
           $(".tampil").show();
         } else {
-          notif("Tidak Ada!","Transaksi/Kode Pelanggan tidak terdaftar pada sistem!","warning");
+          notif("Tidak Ada!","Transaksi/Kode Pelanggan tidak terdaftar pada sistem! atau tunggakan bulan ini LUNAS","warning");
         }
       },
       error : function(jqXHR,errorThrown,textStatus)

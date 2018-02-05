@@ -5,7 +5,7 @@ class Laporan extends CI_Controller {
   {
       parent::__construct();
 		$this->load->model('laporan_model','lap');
-      $this->load->helper('bulan');
+      $this->load->helper('MY_bulan');
   }
 
 	public function index()
@@ -26,27 +26,30 @@ class Laporan extends CI_Controller {
 
 	public function pelanggan()
 	{
-		$x1 = html_escape($this->input->post('wilayah'));
-		$x2 = html_escape($this->input->post('aktif'));
-		$x3 = html_escape($this->input->post('non_aktif'));
-		$x4 = html_escape($this->input->post('putus'));
-		$x5 = html_escape($this->input->post('group_all'));
+		$x1 = html_escape($this->input->post('lap_wilayah'));
+		$x2 = html_escape($this->input->post('lap_status'));
+		$x3 = html_escape($this->input->post('lap_group_all'));
+		$x4 = html_escape($this->input->post('lap_bln_instalasi'));
 		$info = $this->db->query("SELECT * FROM profil_perusahaan WHERE id_profil = 1")->row();
 
 		if (isset($x1)) {
 			$data = $this->lap->by_wilayah($x1);
-			$output = array(
-				'data' => $data,
-				'profil' => $info,
-				'header' => array(
-					'title' => 'Laporan Pelanggan',
-					'subtitle' => 'Wilayah',
-					'tanggal' => '30 Desember 2017',
-				),
-			);
-
-			$this->load->view('admin/laporan/lap_pelanggan_by_wilayah',$data)
+			$title = 'Laporan Pelanggan';
+			$subtitle = 'Wilayah';
+			$tanggal = tgl_sekarang();
+			$this->load->view('admin/laporan/lap_pelanggan_by_wilayah',$data);
 		}
+
+		$output = array(
+			'data' => $data,
+			'summary' => $summary,
+			'profil' => $info,
+			'header' => array(
+				'title' => $title,
+				'subtitle' => $subtitle,
+				'tanggal' => $tanggal
+			)
+		);
 
 
 	}
@@ -62,6 +65,13 @@ class Laporan extends CI_Controller {
 		// echo "<pre>";
 		// echo print_r($data);
 		// echo "</pre>";
+	}
+
+	public function tes()
+	{
+		echo tgl_sekarang()."<br>";
+		echo bulan_tahun('2018-03')."<br>";
+		echo tgl_lokal('2018-01-19')."<br>";
 	}
 
 }

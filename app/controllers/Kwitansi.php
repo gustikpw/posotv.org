@@ -17,9 +17,9 @@ class Kwitansi extends CI_Controller {
 
 	private function _invoiceCode($wilayah,$bulanPenagihan) { // 'KWA'
 		$tgl_skrg = substr(str_replace('-','',$bulanPenagihan),2,4); // 1710
-    $cari = $wilayah.$tgl_skrg; // KWA1710
+    $kode = $wilayah.$tgl_skrg; // KWA1710
 		$angkaRandom = rand(1,999999);
-		return $nextInvoiceNum = 'KWA'.$tgl_skrg.sprintf('%06s',$angkaRandom); // Jadinya 'KWA1710999999' 9999999 = invoice random
+		return $nextInvoiceNum = $kode.sprintf('%06s',$angkaRandom); // Jadinya 'KWA1710999999' 9999999 = invoice random
   }
 
 	private function _generateQr($invoice)
@@ -76,7 +76,7 @@ class Kwitansi extends CI_Controller {
 							'kode_pelanggan' => $kode->kode_pelanggan,
 							'bulan_penagihan' => $bulanPenagihan,
 							'hash' => md5($cekinv),
-							'user' => $this->session->username,
+							'user' => base64_decode(urldecode($this->session->sesikode)),
 							);
 							$insert = $this->kwitansi->save_inv($data);
 						}
@@ -107,10 +107,13 @@ class Kwitansi extends CI_Controller {
 
 	public function generateInvoice($wilayah,$bulanPenagihan)
 	{
+		ini_set('max_execution_time', 300); // terjadi error ketika generate kwitansi > 30 detik. ini untuk mengaturnya
+
 		$bulan = array('','Januari','Februari','Maret','April','Mei', 'Juni','Juli','Agustus','September', 'Oktober','November','Desember');
 		$pelanggan = $this->kwitansi->plgn_ByWilayah($wilayah); // ambil semua kode pelanggan berdasarkan wilayah
 		$profil = $this->kwitansi->profil_perusahaan();
     $kolektor = $this->kwitansi->findCollector($wilayah);
+		$terms = $this->_invoiceTerms();
 		// echo json_encode($pelanggan);
 		$data = [];
 		foreach ($pelanggan as $dt) {
@@ -141,10 +144,12 @@ class Kwitansi extends CI_Controller {
       $data[] = $row;
     }
 
-    $kirim = array( 'company' => $profil,
-							'cust' => $data,
-                    'terms' => $this->_invoiceTerms(),
+    $kirim = array(
+			'company' => $profil,
+			'cust' => $data,
+      'terms' => $terms
     );
+
     $this->load->view('admin/kwitansi/invoice_edit',$kirim);
 		// echo json_encode($data)."<br><br>";
 		// echo json_encode($pelanggan);
@@ -202,16 +207,14 @@ class Kwitansi extends CI_Controller {
 				$row[]= "	<a class=\"btn btn-xs btn-info\" href=\"$fileurl\" target=\"_blank\"><i class=\"fa fa-eye\"></i> View</a>
 									<a class=\"btn btn-xs btn-primary\" href=\"$fileurl\"><i class=\"fa fa-download\"></i> Download</a>
 									<a class=\"btn btn-xs btn-danger\"  href=\"javascript:void(0)\" title=\"Hapus Kwitansi\" onclick=\"hapusFile('".$asd[$i]."')\"><i class=\"fa fa-trash\"></i> Delete</a>";
-			}
+			} else {$status = FALSE;}
 
 			if ($status==TRUE) {
 				$data[] = $row;
-			} else {
-				$data[] = "";
 			}
 		}
 
-		$output = array('data'=>$data);
+		$output = array('data' => $data,);
 		echo json_encode($output);
 	}
 
@@ -293,6 +296,8 @@ class Kwitansi extends CI_Controller {
 
 	public function setor()
 	{
+		$ceksession = base64_decode(urldecode($this->session->sesikode));
+
 		$nama_kolektor = $this->input->post('nama_kolektor');
 		$kode_invoice = $this->input->post('kode_invoice[]');
 		$jmlSetoran = $this->input->post('jmlSetoran[]');
@@ -301,8 +306,14 @@ class Kwitansi extends CI_Controller {
 		$ket = $this->input->post('keterangan[]');
 
 		for ($i=0; $i < count($hash); $i++) {
+			// Get user berdasarkan wilayah kolektor
+			$inv = $kode_invoice[$i];
+			$cek_wil = $this->db->query("SELECT * FROM v_temp_invoice WHERE kode_invoice LIKE '$inv'")->row();
+			$cek_kolektor = $this->db->query("SELECT * FROM v_kolektor WHERE wilayah LIKE '%$cek_wil->id_wilayah%'")->row();
+			$sesi = ($ceksession == '1') ? $cek_kolektor->id_kolektor : $cek_kolektor->id_kolektor ;
+
 			$data = array(
-				'user' => $nama_kolektor,
+				'user' => $sesi,
 				'status' => 'Lunas',
 				'tgl_bayar' => date('Y-m-d'),
 				'keterangan' => $ket[$i],

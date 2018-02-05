@@ -25,6 +25,7 @@ class Login extends CI_Controller {
 											      'ses_admin' => TRUE,
 														'alias' => $usr->nama_lengkap,
 														'level' => $usr->level,
+														'sesikode' => urlencode(base64_encode($usr->id_karyawan)),
 	      );
 	      $this->session->set_userdata($sess_data);
 				$this->_admin();
@@ -52,7 +53,7 @@ class Login extends CI_Controller {
 
 	public function logout()
 	{
-    $sess_data=array('username','ses_admin','alias','level','writer');
+    $sess_data=array('username','ses_admin','alias','level','sesikode');
     $this->session->unset_userdata($sess_data);
 		$this->login();
 	}
@@ -74,6 +75,7 @@ class Login extends CI_Controller {
 												'ses_admin' => TRUE,
 												'alias' => 'Super Administrator',
 												'level' => 'administrator',
+												'sesikode' => urlencode(base64_encode('1')),
 		);
 		$this->session->set_userdata($sess_data);
 		$this->_admin();

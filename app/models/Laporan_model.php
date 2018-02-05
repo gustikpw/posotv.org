@@ -2,42 +2,42 @@
 
 class Laporan_model extends CI_Model {
 
-  var $table = 'bagian';
-  var $column = array('id_bagian','bagian','keterangan');
-  var $order = array('id_bagian'=>'DESC');
-
   function __construct()
   {
       parent::__construct();
-      $this->load->database();
-  }
-  
-  //CRUD bagian
-  public function get_by_id($id_bagian)
-  {
-    $this->db->from('bagian');
-    $this->db->where('id_bagian',$id_bagian);
-    $query = $this->db->get();
-
-    return $query->row();
   }
 
-  public function save($data)
+  /*  Untuk FPDF
+   *  LAPORAN PELANGGAN
+   */
+
+  public function lap_pelanggan_by_wilayah($kode_wilayah)
   {
-    $this->db->insert('bagian', $data);
-    return $this->db->insert_id();
+    return $this->db->query("SELECT * FROM v_pelanggan WHERE id_wilayah = $kode_wilayah")->result();
   }
 
-  public function update($where, $data)
+  public function lap_pelanggan_by_status($id_status)
   {
-    $this->db->update('bagian', $data, $where);
-    return $this->db->affected_rows();
+    return $this->db->query("SELECT * FROM v_pelanggan WHERE id_status = '$id_status'")->result();
   }
 
-  public function delete_by_id($id_bagian)
+  public function lap_pelanggan_group_all()
   {
-    $this->db->where('id_bagian', $id_bagian);
-    $this->db->delete('bagian');
+    return $this->db->query("SELECT * FROM v_pelanggan ORDER BY id_wilayah ASC")->result();
+  }
+
+  public function lap_pelanggan_by_bln_instalasi($tgl_pasang)
+  {
+    return $this->db->query("SELECT * FROM v_pelanggan WHERE tgl_pasang LIKE '$tgl_pasang%' ORDER BY id_wilayah ASC")->result();
+  }
+
+  public function lap_pelanggan_antara_tgl($tgl_awal, $tgl_akhir)
+  {
+    return $this->db->query("SELECT *
+      FROM v_pelanggan
+      WHERE tgl_pasang
+      BETWEEN '$tgl_awal' AND '$tgl_akhir'
+      ORDER BY id_wilayah ASC")->result();
   }
 
   /*  Untuk FPDF

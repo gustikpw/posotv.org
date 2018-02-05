@@ -4,7 +4,7 @@
         <div class="p-w-md m-t-sm">
             <div class="row">
 
-                <div class="col-sm-4">
+                <div class="col-sm-8">
                   <div class="m-l-n-xs">
                     <img src="<?=base_url('assets/img/poso.tv.xs.png')?>" class="img-rounded" alt="" width=""><br>
                   </div>
@@ -12,22 +12,29 @@
                     <small>
                       PT. POSO MEDIA VISION
                     </small>
-                    <!-- <div id="sparkline1" class="m-b-sm"></div>
+                    <br><br>
+                    <div class="border-bottom"></div>
+                    <!-- <div id="sparkline1" class="m-b-sm"></div> -->
                     <div class="row">
-                        <div class="col-xs-4">
-                            <small class="stats-label">Pages / Visit</small>
-                            <h4>236 321.80</h4>
+                        <div class="col-xs-3 border-right">
+                            <small class="stats-label">Target Rp</small>
+                            <h2 class="no-margins"><span class="font-bold det15"></span></h2>
                         </div>
+                        <div class="col-xs-3 border-right">
+                          <small class="stats-label">Tercapai Rp</small>
+                          <h2 class="no-margins"><span class="font-bold det16"></span></h2>
+                        </div>
+                        <div class="col-xs-3 border-right">
+                            <small class="stats-label">% Tercapai</small>
+                            <h2 class="no-margins"><span class="det17"></span></h2>
+                        </div>
+                        <div class="col-xs-3">
+                            <small class="stats-label">% Margin</small>
+                            <h2 class="no-margins"><span class="det18"></span></h2>
+                        </div>
+                    </div>
 
-                        <div class="col-xs-4">
-                            <small class="stats-label">% New Visits</small>
-                            <h4>46.11%</h4>
-                        </div>
-                        <div class="col-xs-4">
-                            <small class="stats-label">Last week</small>
-                            <h4>432.021</h4>
-                        </div>
-                    </div> -->
+                    <div class="border-bottom"></div>
 
                 </div>
                 <div class="col-sm-4">
@@ -127,21 +134,40 @@
 
             <div class="row">
                <div class="col-lg-8">
-                    <div class="small pull-left col-md-3 m-l-lg m-t-md">
-                        <strong>Sales char</strong> have evolved over the years sometimes.
-                    </div>
-                    <div class="small pull-right col-md-3 m-t-md text-right">
-                        <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
-                    </div>
-                    <div class="flot-chart m-b-xl">
-                        <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
-                    </div>
+                  <div>
+                      <span class="pull-right text-right">
+                      <small>Setoran tertinggi kolektor: <strong><span class="det10">Superadmin</span></strong></small>
+                          <br/>
+                          All deposit: <span class="det11">7.250.000</span>
+                      </span>
+                      <h1 class="m-b-xs"><span class="det8">0</span></h1>
+                      <h3 class="font-bold no-margins">
+                          <span class="det9">February</span> revenue
+                      </h3>
+                      <small>By all collectors.</small>
+                  </div>
+
+                  <div>
+                     <canvas id="lineChart" height="150"></canvas>
+                  </div>
+
+                  <div class="m-t-md">
+                     <small class="pull-right">
+                         <i class="fa fa-clock-o"> </i>
+                         Update on <span class="det12">1.01.2018</span><br>
+                         <small>Grafik akan tersedia jika semua kolektor telah melakukan setoran min 1x</small>
+                     </small>
+                    <small>
+                        <strong>Analisis setoran:</strong> Nilai telah berubah dari waktu ke waktu,<br> dan bulan lalu <span class="det13">0</span> mencapai level max <span class="det14">0</span>.
+                    </small>
+                  </div>
+
+               </div>
+               <div class="col-lg-4">
+                 <div class="border-left">
+                    <canvas id="doughnutChart" width="100%"></canvas>
                  </div>
-                 <div class="col-lg-4">
-                    <div>
-                       <canvas id="doughnutChart" height="500px"></canvas>
-                    </div>
-                 </div>
+               </div>
             </div>
 
 

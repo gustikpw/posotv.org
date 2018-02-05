@@ -25,7 +25,7 @@ class Pelanggan extends CI_Controller {
 		$row = array();
 		// Foto Pelanggan
 		if ($br->foto=='') {
-			$foto = '<img src="'.base_url('assets/inspinia271/img/pelanggan/a8.jpg').'" onclick="views(\''.$br->id_pelanggan.'\')" class="img-thumbnail" alt="'.$br->nama_lengkap.'" width="40" height="40">';
+			$foto = '<span class="client-avatar"><img src="'.base_url('assets/inspinia271/img/pelanggan/a8.jpg').'" onclick="views(\''.$br->id_pelanggan.'\')" alt="'.$br->nama_lengkap.'"></span>';
 		} else {
 			$foto = $br->foto;
 		}
@@ -238,7 +238,7 @@ class Pelanggan extends CI_Controller {
 		$data['data'] = $this->pelanggan->get_datatables();
 		$title = ($_POST['search']['value'] == null) ? "PELANGGAN" : $_POST['search']['value'];
 		$data['other'] = array('bulan' => bulan(date('m'))." ".date('Y'),'title' => $title);
-		$this->load->view('admin/pelanggan/report',$data);
+		$this->load->view('admin/pelanggan/report2',$data);
 		// echo "<pre>";
 		// print_r($data);
 		// echo "</pre>";

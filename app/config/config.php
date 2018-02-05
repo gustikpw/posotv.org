@@ -98,7 +98,7 @@ $config['encryption_key'] = 'jdfhs9fe7bc7cw7r020bc20jjx0d0z239';
 |
 */
 $config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = 'ci_session';
+$config['sess_cookie_name'] = 'pstv_sess';
 $config['sess_expiration'] = 7200;
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;

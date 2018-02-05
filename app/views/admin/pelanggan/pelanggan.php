@@ -192,3 +192,57 @@
         </div>
     </div>
 </div>
+
+<!-- Form Laporan -->
+<div class="modal inmodal" id="myModal_laporan" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- <div class="modal-dialog" style="width:80%"> -->
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Laporan <?php echo ucwords(str_replace('_',' ',$active)); ?> Pelanggan</h4>
+                <small class="font-bold"></small>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <form id="form_laporan" action="#" class="form-horizontal">
+                    <!-- <div class="col-lg-6 b-r"> -->
+                      <div class="form-group"><label class="col-lg-3 control-label ">Wilayah</label>
+                        <div class="col-lg-9"><select name="lap_wilayah" class="form-control fokus"></select> <span class="help-block m-b-none"></span>
+                        </div>
+                      </div>
+                    <!-- </div> -->
+
+                    <!-- <div class="col-lg-6 b-r"> -->
+                      <div class="form-group"><label class="col-lg-3 control-label">Tanggal Pasang</label>
+                        <div class="col-lg-9"><input type="text" name="lap_tgl_pasang" placeholder="Tanggal Pasang/Instalasi" class="form-control date"> <span class="help-block m-b-none"></span>
+                        </div>
+                      </div>
+                      <!-- <div class="form-group"><label class="col-lg-3 control-label">Tarif Berlangganan</label>
+                          <div class="col-lg-9"><select name="lap_tarif" class="form-control"></select> <span class="help-block m-b-none"></span>
+                          </div>
+                      </div>
+                      <div class="form-group"><label class="col-lg-3 control-label">Status</label>
+                          <div class="col-lg-9"><select name="lap_status" class="form-control"></select> <span class="help-block m-b-none"></span>
+                          </div>
+                      </div> -->
+                      <div class="form-group"><label class="col-lg-3 control-label">Group All</label>
+                          <div class="col-lg-9">
+                            <select name="lap_group_all" class="form-control">
+                              <option value=""></option>
+                              <option value="group_all"></option>
+                            </select>
+                            <span class="help-block m-b-none"></span>
+                          </div>
+                      </div>
+                    <!-- </div> -->
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnGetLaporan" onclick="get_laporan()">Lihat Laporan</button>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

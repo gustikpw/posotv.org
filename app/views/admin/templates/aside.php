@@ -6,17 +6,17 @@
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="<?php echo base_url('assets/inspinia271/img/profile_small.jpg') ?>" />
+                            <img alt="image" class="img-circle" src="<?=base_url('assets/inspinia271/img/profile_small.jpg') ?>" />
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $_SESSION['alias']; ?></strong>
-                            </span> <span class="text-muted text-xs block"><?php echo ucfirst($_SESSION['level']); ?> <b class="caret"></b></span> </span> </a>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?=$_SESSION['alias']; ?></strong>
+                            </span> <span class="text-muted text-xs block"><?=ucfirst($_SESSION['level']); ?> <b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a href="profile.html">Profile</a></li>
                                 <li><a href="contacts.html">Contacts</a></li>
                                 <li><a href="mailbox.html">Mailbox</a></li>
                                 <li class="divider"></li>
-                                <li><a href="<?php echo site_url('login/logout') ?>">Logout</a></li>
+                                <li><a href="<?=site_url('login/logout') ?>">Logout</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
@@ -26,29 +26,35 @@
                     <li class="special_link">
                         <a href="<?= site_url('dashboard')?>"><i class="fa fa-laptop"></i> <span class="nav-label">DASHBOARD</span></a>
                     </li>
-                    <li class="<?php echo $x1 = ($active == "profil_perusahaan" || $active == "bagian" || $active == "jabatan" || $active == "karyawan" || $active == "wilayah" || $active == "status" || $active == "tarif" || $active == "pelanggan" || $active == "kwitansi" || $active == "kolektor" || $active == "sms_inbox") ? 'active' : '' ?>">
+                    <li class="<?=$x1 = ($active == "profil_perusahaan" || $active == "bagian" || $active == "jabatan" || $active == "karyawan" || $active == "wilayah" || $active == "status" || $active == "tarif" || $active == "pelanggan" || $active == "kwitansi" || $active == "kolektor" || $active == "sms_inbox") ? 'active' : '' ?>">
                         <a href="index-2.html"><i class="fa fa-th-large"></i> <span class="nav-label">Master Data</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li class="<?php echo $x1a = ($active == "profil_perusahaan") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/profil_perusahaan')?>">Profil Perusahaan</a></li>
-                            <li class="<?php echo $x1b = ($active == "bagian") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/bagian')?>">Bagian</a></li>
-                            <li class="<?php echo $x1c = ($active == "jabatan") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/jabatan')?>">Jabatan</a></li>
-                            <li class="<?php echo $x1d = ($active == "karyawan") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/karyawan')?>">Karyawan</a></li>
-                            <li class="<?php echo $x1e = ($active == "wilayah") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/wilayah')?>">Wilayah</a></li>
-                            <li class="<?php echo $x1f = ($active == "status") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/status')?>">Status</a></li>
-                            <li class="<?php echo $x1g = ($active == "tarif") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/tarif')?>">Tarif</a></li>
-                            <li class="<?php echo $x1h = ($active == "pelanggan") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/pelanggan')?>">Pelanggan</a></li>
-                            <li class="<?php echo $x1i = ($active == "kwitansi") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/kwitansi')?>">Kwitansi</a></li>
-                            <li class="<?php echo $x1j = ($active == "kolektor") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/kolektor')?>">Kolektor</a></li>
-                            <li class="<?php echo $x1k = ($active == "sms_inbox") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/sms_inbox')?>">Inbox</a></li>
+                            <li class="<?=$x1a = ($active == "profil_perusahaan") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/profil_perusahaan')?>">Profil Perusahaan</a></li>
+                            <li class="<?=$x1b = ($active == "bagian") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/bagian')?>">Bagian</a></li>
+                            <li class="<?=$x1c = ($active == "jabatan") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/jabatan')?>">Jabatan</a></li>
+                            <li class="<?=$x1d = ($active == "karyawan") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/karyawan')?>">Karyawan</a></li>
+                            <li class="<?=$x1e = ($active == "wilayah") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/wilayah')?>">Wilayah</a></li>
+                            <li class="<?=$x1f = ($active == "status") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/status')?>">Status</a></li>
+                            <li class="<?=$x1g = ($active == "tarif") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/tarif')?>">Tarif</a></li>
+                            <li class="<?=$x1h = ($active == "pelanggan") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/pelanggan')?>">Pelanggan</a></li>
+                            <li class="<?=$x1i = ($active == "kwitansi") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/kwitansi')?>">Kwitansi</a></li>
+                            <li class="<?=$x1j = ($active == "kolektor") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/kolektor')?>">Kolektor</a></li>
+                            <li class="<?=$x1k = ($active == "sms_inbox") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/sms_inbox')?>">Inbox</a></li>
                         </ul>
                     </li>
-                    <li class="<?php echo $x2 = ($active == "pengaduan" || $active == "jenis_gangguan" || $active == "perbaikan_gangguan" || $active == "tunggakan") ? 'active' : '' ?>">
-                        <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">Pelayanan </span><!--span class="label label-warning pull-right">16/24</span--></a>
+                    <li class="<?=$x2 = ($active == "pengaduan" || $active == "jenis_gangguan" || $active == "perbaikan_gangguan" || $active == "tunggakan") ? 'active' : '' ?>">
+                        <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">Pelayanan </span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                          <li class="<?php echo $x2a = ($active == "pengaduan") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/pengaduan')?>">Pengaduan</a></li>
-                          <li class="<?php echo $x2b = ($active == "jenis_gangguan") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/jenis_gangguan')?>">Jenis Gangguan</a></li>
-                          <li class="<?php echo $x2c = ($active == "perbaikan_gangguan") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/perbaikan_gangguan')?>">Perbaikan Gangguan</a></li>
-                          <li class="<?php echo $x2d = ($active == "tunggakan") ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/tunggakan')?>">Tunggakan</a></li>
+                          <li class="<?=$x2a = ($active == "pengaduan") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/pengaduan')?>">Pengaduan</a></li>
+                          <li class="<?=$x2b = ($active == "jenis_gangguan") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/jenis_gangguan')?>">Jenis Gangguan</a></li>
+                          <li class="<?=$x2c = ($active == "perbaikan_gangguan") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/perbaikan_gangguan')?>">Perbaikan Gangguan</a></li>
+                          <li class="<?=$x2d = ($active == "tunggakan") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/tunggakan')?>">Tunggakan</a></li>
+                        </ul>
+                    </li>
+                    <li class="<?=$x5 = ($active == "pemutusan") ? 'active' : '' ?>">
+                        <a href="mailbox.html"><i class="fa fa-warning"></i> <span class="nav-label">Penindakan <span class="fa arrow"></span></span></a>
+                        <ul class="nav nav-second-level collapse">
+                          <li class="<?=$x5a = ($active == "pemutusan") ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/pemutusan')?>">Pemutusan</a></li>
                         </ul>
                     </li>
 
@@ -56,15 +62,15 @@
                         <a href="grid_options.html"><i class="fa fa-laptop"></i> <span class="nav-label">Grid options</span></a>
                     </li> -->
 
-                    <li class="<?php echo $x3 = ($active == "setoran_kolektor" || $active == "setoran_operator" || $active == "liputan") ? 'active' : '' ?>">
+                    <li class="<?=$x3 = ($active == "setoran_kolektor" || $active == "setoran_operator" || $active == "liputan") ? 'active' : '' ?>">
                         <a href="#"><i class="fa fa-money"></i> <span class="nav-label">Keuangan </span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li class="<?php echo $x3 ?>">
+                            <li class="<?=$x3 ?>">
                                 <a href="#" id="damian">Pendapatan <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                  <li class="<?php echo $x3a = ($active == 'setoran_kolektor') ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/setoran_kolektor')?>">Setoran Kolektor</a></li>
-                                  <li class="<?php echo $x3b = ($active == 'setoran_operator') ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/setoran_operator')?>">Setoran Operator</a></li>
-                                  <li class="<?php echo $x3c = ($active == 'liputan') ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/liputan')?>">Liputan</a></li>
+                                  <li class="<?=$x3a = ($active == 'setoran_kolektor') ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/setoran_kolektor')?>">Setoran Kolektor</a></li>
+                                  <li class="<?=$x3b = ($active == 'setoran_operator') ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/setoran_operator')?>">Setoran Operator</a></li>
+                                  <li class="<?=$x3c = ($active == 'liputan') ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/liputan')?>">Liputan</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -85,16 +91,16 @@
                         </ul>
                     </li>
 
-                    <li class="<?php echo $x4 = ($active == "appsettings") ? 'active' : '' ?>">
+                    <li class="<?=$x4 = ($active == "appsettings") ? 'active' : '' ?>">
                         <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
-                            <li class="<?php echo $x4a = ($active == 'appsettings') ? 'active' : '' ?>"><a href="<?php echo site_url('dashboard/url/appsettings')?>">App Settings</a></li>
+                            <li class="<?=$x4a = ($active == 'appsettings') ? 'active' : '' ?>"><a href="<?=site_url('dashboard/url/appsettings')?>">App Settings</a></li>
 
                         </ul>
                     </li>
 
                     <li class="special_link">
-                        <a href="<?php echo site_url('login/logout') ?>"><i class="fa fa-sign-out"></i> <span class="nav-label">Log Out</span></a>
+                        <a href="<?=site_url('login/logout') ?>"><i class="fa fa-sign-out"></i> <span class="nav-label">Log Out</span></a>
                     </li>
                 </ul>
 
@@ -166,7 +172,7 @@
 
 
                 <li>
-                    <a href="<?php echo site_url('login/logout') ?>">
+                    <a href="<?=site_url('login/logout') ?>">
                         <i class="fa fa-sign-out"></i> Log out
                     </a>
                 </li>
