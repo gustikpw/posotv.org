@@ -61,6 +61,10 @@
               <div class="ibox-content">
                 <div class="row">
                   <!-- <button type="button" class="btn btn-sm btn-danger" onclick="delAlltr()"><i class="fa fa-trash"></i> Hapus Semua</button> -->
+                  <div class="col-lg-12">
+                    <label for="t_setoran">Total Setoran</label>
+                    <h1><strong id="t_setoran">0</strong></h1>
+                  </div>
                 </div>
               </div>
             </div>

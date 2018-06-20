@@ -2,26 +2,7 @@
 <script src="<?php echo base_url('assets/inspinia271/js/plugins/bootstrapTour/bootstrap-tour.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/inspinia271/js/plugins/datapicker/bootstrap-datepicker.js') ?>"></script>
 <script src="<?php echo base_url('assets/inspinia271/js/plugins/select2/select2.full.min.js') ?>"></script>
-<!-- <script src="<?php //echo base_url('assets/inspinia271/js/plugins/chosen/chosen.jquery.js') ?>"></script> -->
-
 <script>
-// $('.itemName').select2({
-//   placeholder: '--- Select Item ---',
-//   width : "100%",
-//   dropdownParent : $('#myModal'),
-//   ajax: {
-//     url: "<?php //echo site_url('Api_search/cari_plgn')?>",
-//     dataType: 'json',
-//     delay: 350,
-//     processResults: function (data) {
-//       return {
-//         results: data
-//       };
-//     },
-//     cache: true
-//   }
-// });
-
 $(function(){
   getSelect();
 });
@@ -228,6 +209,9 @@ function adds()
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('[name="id_pengaduan"]').val('');
+    kode_pelanggan.val('').trigger('change');
+    prioritas.val('').trigger('change');
+    jenis_gangguan.val('').trigger('change');
     $('#myModal').modal('show'); // show bootstrap modal
     $('.help-block').empty();
     $('.fokus').focus();

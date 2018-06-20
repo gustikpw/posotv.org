@@ -55,17 +55,18 @@ class Login extends CI_Controller {
 	{
     $sess_data=array('username','ses_admin','alias','level','sesikode');
     $this->session->unset_userdata($sess_data);
-		$this->login();
+		redirect(site_url('login'));
 	}
 
 	private function _autentikasi()
 	{
-		if ($this->session->level=='administrator' || $this->session->level=='kolektor' || $this->session->level=='teknisi') {
-			// redirect(site_url('index.php/dashboard'));
-			$this->_admin();
-		} else {
-			$data['title'] = 'POSO TV App';
-			$this->load->view('login/login',$data);
+		if ($this->_cekAdminExist()) {
+			if ($this->session->level=='administrator' || $this->session->level=='kolektor' || $this->session->level=='teknisi') {
+				$this->_admin();
+			} else {
+				$data['title'] = 'POSO TV App';
+				$this->load->view('login/login',$data);
+			}
 		}
 	}
 
@@ -79,6 +80,16 @@ class Login extends CI_Controller {
 		);
 		$this->session->set_userdata($sess_data);
 		$this->_admin();
+	}
+
+	private function _cekAdminExist()
+	{
+		$cekAdminExist = $this->db->query("SELECT count(*) AS jumlah FROM users WHERE level = 'administrator'")->row();
+    if ($cekAdminExist->jumlah > 0) {
+			return TRUE;
+    } else {
+			redirect('register');
+    }
 	}
 
 }

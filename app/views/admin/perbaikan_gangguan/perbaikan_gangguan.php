@@ -150,7 +150,7 @@
                 </form>
                 </div>
                 <div class="col-md-6">
-                  <div class="text-bold bg-warning p-xxs m-xxs">History Tunggakan</div>
+                  <!-- <div class="text-bold bg-warning p-xxs m-xxs">History Tunggakan</div>
                   <table class="table table-striped table-hover">
                   <thead>
                     <tr>
@@ -174,7 +174,7 @@
                       <th>Rp. 60.000,-</th>
                     </tr>
                   </tfoot>
-                  </table>
+                  </table> -->
                 </div>
               </div>
 

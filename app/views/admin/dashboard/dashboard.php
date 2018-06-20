@@ -29,8 +29,8 @@
                             <h2 class="no-margins"><span class="det17"></span></h2>
                         </div>
                         <div class="col-xs-3">
-                            <small class="stats-label">% Margin</small>
-                            <h2 class="no-margins"><span class="det18"></span></h2>
+                            <!-- <small class="stats-label">% Margin</small>
+                            <h2 class="no-margins"><span class="det18"></span></h2> -->
                         </div>
                     </div>
 

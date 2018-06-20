@@ -36,7 +36,7 @@ function showModal(val) {
 function openWindow() {
   kode = $("[name='kode_pelanggan']").val();
   tgl_pemutusan = $("[name='tgl_pemutusan']").val();
-  link = "<?=site_url()?>pemutusan/surat?kode="+kode+"&tgl_pemutusan="+tgl_pemutusan;
+  link = "<?=site_url()?>pemutusan/surat_pemutusan?kode="+kode+"&tgl_pemutusan="+tgl_pemutusan;
   window.open(link,'','width=800,height=600');
 }
 

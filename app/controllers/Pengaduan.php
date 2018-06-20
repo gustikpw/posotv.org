@@ -71,7 +71,6 @@ class Pengaduan extends CI_Controller {
 	foreach ($list as $br) {
 		$no++;
 		$row = array();
-		if ($br->status_aduan !== 'Selesai') {
 			$row[] = $no;
 			$row[] = "<span class='font-bold'>$br->kode_pelanggan</span>";
 			$row[] = "<span class='font-bold'>$br->nama_lengkap</span>";
@@ -101,14 +100,12 @@ class Pengaduan extends CI_Controller {
 			$row[] = $stsAduan;
 			$data[] = $row;
 		}
-		}
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->pengaduan->count_all(),
-						"recordsFiltered" => $this->pengaduan->count_filtered(),
+						"recordsTotal" => $this->pengaduan->count_all2(),
+						"recordsFiltered" => $this->pengaduan->count_filtered2(),
 						"data" => $data,
 				);
-		//output to json format
 		echo json_encode($output);
 	}
 

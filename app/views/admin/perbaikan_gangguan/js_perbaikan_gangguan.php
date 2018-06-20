@@ -29,7 +29,7 @@ $(document).ready(function(){
     "order": [], //Initial no order.
     // Load data for the table's content from an Ajax source
     "ajax": {
-        "url": "<?php echo site_url('Perbaikan_gangguan/ajax_list')?>",
+        "url": "<?php echo site_url('perbaikan_gangguan/ajax_list')?>",
         "type": "POST"
     },
     //Set column definition initialisation properties.
@@ -162,13 +162,13 @@ function save()
   $.ajax({
     url : "<?php echo site_url('Perbaikan_gangguan/update_pengaduan')?>",
     type: "POST",
-    data: $('#formUpdate1').serialize(),
+    data: $('#formUpdate').serialize(),
     dataType: "JSON",
     success: function(data)
     {
       if(data.status) //if success close modal and reload ajax table
       {
-        $('#myModal').modal('hide');
+        $('#updateModal').modal('hide');
         reload_table();
         $('.btnFokus').focus();
         notif('Berhasil menambah/edit data!','Sukses','success');

@@ -388,7 +388,8 @@ class Api_search extends CI_Controller {
 	private function _setoran_summary()
 	{
 		$tahun = date('Y');
-		$bulan = 4;
+		// $bulan = 4;
+		$bulan = (int) date('m');
 		$res_user = $this->api->get_user();
 		foreach ($res_user as $u) {
 			$user = ($u->kolektor != null) ? $u->kolektor : 'Unknown';
@@ -459,8 +460,8 @@ class Api_search extends CI_Controller {
 		$target = $q['target']->target;
 		$capai = $q['capai']->capai;
 
-		$rate_success	= 100 - ((($target - $capai) / $target) * 100 );
-		$rate_margin	= ((($target - $capai) / $target ) * 100);
+		$rate_success	= ($q['target']->target != null) ? 100 - ((($target - $capai) / $target) * 100 ) : 0;
+		$rate_margin	= ($q['target']->target != null) ? ((($target - $capai) / $target ) * 100) : 0;
 
 		$msg = '';
 		if ($rate_success >= 90) {
@@ -514,7 +515,7 @@ class Api_search extends CI_Controller {
 		return $ret;
 	}
 
-  
+
 	/*
 	|
 	|

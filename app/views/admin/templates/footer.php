@@ -1,12 +1,12 @@
 
 
-        </div><br><br><br>  <br><br><br><br><br><br> <br><br><br><br><br><br>  
+        </div><br><br><br>  <br><br><br><br><br><br> <br><br><br><br><br><br>
         <div class="footer">
             <div class="pull-right">
-                10GB of <strong>250GB</strong> Free.
+                <strong><?php echo $profilP->nama_perusahaan; ?></strong>
             </div>
             <div>
-                <strong>Copyright</strong> Example Company &copy; 2014-2017
+                <strong>Copyright</strong> <?php echo $profilP->alias; ?> &copy; 2014-<?php echo date('Y'); ?>
             </div>
         </div>
     </div>

@@ -12,20 +12,17 @@ class Pengaduan_model extends CI_Model {
     'prioritas'=>'DESC'
   );
 
-  var $vtable2 = 'v_pengaduan';
-  var $column2 = array('id_pengaduan',' kode_pelanggan','nama_lengkap','wilayah','alamat','status','tgl_lapor','tgl_gangguan','prioritas','jenis_gangguan','keterangan','tgl_perbaikan','teknisi','sebab','tindakan','status_aduan');
+  var $vtable2 = 'v_display_pengaduan';
+  var $column2 = array('id_pengaduan',' kode_pelanggan','nama_lengkap','wilayah','tgl_lapor','prioritas','jenis_gangguan','status_aduan');
   var $order2 = array(
-    // 'prioritas'=>'High',
     'prioritas'=>'DESC',
-    // 'status_aduan'=>'Selesai',
   );
 
   function __construct()
   {
       parent::__construct();
-      $this->load->database();
   }
-  // serverside datatable
+
   private function _get_datatables_query()
   {
 
@@ -132,6 +129,19 @@ class Pengaduan_model extends CI_Model {
   public function count_all()
   {
     $this->db->from($this->vtable);
+    return $this->db->count_all_results();
+  }
+
+  function count_filtered2()
+  {
+    $this->_get_datatables_query2();
+    $query = $this->db->get();
+    return $query->num_rows();
+  }
+
+  public function count_all2()
+  {
+    $this->db->from($this->vtable2);
     return $this->db->count_all_results();
   }
 // batas serverside datatable

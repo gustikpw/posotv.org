@@ -16,12 +16,15 @@
                                 <li><a href="contacts.html">Contacts</a></li>
                                 <li><a href="mailbox.html">Mailbox</a></li>
                                 <li class="divider"></li>
-                                <li><a href="<?=site_url('login/logout') ?>">Logout</a></li>
+                                <li><a href="<?=site_url('logout') ?>">Logout</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
                             PS
                         </div>
+                    </li>
+                    <li class="special_link">
+                        <a href="<?= site_url('quicklink')?>"><i class="fa fa-link"></i> <span class="nav-label">QUICK LINK</span></a>
                     </li>
                     <li class="special_link">
                         <a href="<?= site_url('dashboard')?>"><i class="fa fa-laptop"></i> <span class="nav-label">DASHBOARD</span></a>
@@ -58,10 +61,6 @@
                         </ul>
                     </li>
 
-                    <!-- <li>
-                        <a href="grid_options.html"><i class="fa fa-laptop"></i> <span class="nav-label">Grid options</span></a>
-                    </li> -->
-
                     <li class="<?=$x3 = ($active == "setoran_kolektor" || $active == "setoran_operator" || $active == "liputan") ? 'active' : '' ?>">
                         <a href="#"><i class="fa fa-money"></i> <span class="nav-label">Keuangan </span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
@@ -91,6 +90,10 @@
                         </ul>
                     </li>
 
+                    <li>
+                        <a href="<?=site_url('dashboard/url/laporan')?>"><i class="fa fa-laptop"></i> <span class="nav-label">Laporan</span></a>
+                    </li>
+
                     <li class="<?=$x4 = ($active == "appsettings") ? 'active' : '' ?>">
                         <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
@@ -100,7 +103,7 @@
                     </li>
 
                     <li class="special_link">
-                        <a href="<?=site_url('login/logout') ?>"><i class="fa fa-sign-out"></i> <span class="nav-label">Log Out</span></a>
+                        <a href="<?=site_url('logout') ?>"><i class="fa fa-sign-out"></i> <span class="nav-label">Log Out</span></a>
                     </li>
                 </ul>
 

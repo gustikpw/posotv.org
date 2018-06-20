@@ -52,5 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'login';
 $route['autoreply'] = 'gammu/autoreply';
 $route['autoreply/autoreply'] = 'gammu/autoreply';
+$route['login'] = 'login/login';
+$route['logout'] = 'login/logout';
+$route['quicklink'] = 'dashboard/url/quicklink';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

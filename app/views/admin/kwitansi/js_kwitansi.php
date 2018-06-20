@@ -163,7 +163,6 @@ function regInvoice()
           notif(time_msg,data.title,data.msgtype);
           // $('[name="bulan_penagihan"]').val('');
           wilayah.val('').trigger('change');
-          // $('[name="sandi"]').val('');
           reload_table();
           $('#ibox2').children('.ibox-content').toggleClass('sk-loading');
       },
@@ -177,7 +176,7 @@ function regInvoice()
 
 function hapusFile(id)
 {
-  if (confirm('Yakin menghapus kwitansi '+id+'?')) {
+  if (confirm('Yakin menghapus kwitansi '+id+'? \nTagihan ini telah terdaftar di database dan akan terhapus!')) {
     $.ajax({
       url : "<?php echo site_url('kwitansi/hapusFile/')?>"+id,
       type: "GET",

@@ -38,15 +38,6 @@
                             <input type="password" class="form-control" placeholder="Password" name="password" required="">
                         </div>
                         <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
-
-                        <a href="#">
-                            <small>Forgot password?</small>
-                        </a>
-
-                        <p class="text-muted text-center">
-                            <small>Do not have an account?</small>
-                        </p>
-                        <a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a>
                     </form>
                     <p class="m-t">
                         <small><span><?php if (!isset($_SESSION['errors'])) { echo "Inspinia we app framework base on Bootstrap 3 &copy; 2014"; } else { echo $_SESSION['errors']; } ?></span></small>

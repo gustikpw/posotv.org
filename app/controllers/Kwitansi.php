@@ -271,7 +271,7 @@ class Kwitansi extends CI_Controller {
 				<td>$q->wilayah</td>
 				<td>".str_replace('-02','',$q->bulan_penagihan)."</td>
 				<td>$status <input name='status[]' value='$q->status' hidden></td>
-				<td>$q->tarif</td>
+				<td>$q->tarif <input type='number' id='$q->hash' value='$q->tarif' hidden></td>
 				<td><input type='number' name='jmlSetoran[]' class='form-control input-sm' value='$q->tarif'></td>
 				<td class='text-center'>
 					<a href='javascript:void(0)' class='btn btn-xs btn-info' onclick=\"addKet('$q->kode_invoice')\"><i class='fa fa-info'></i> Add Info</a>
@@ -290,6 +290,7 @@ class Kwitansi extends CI_Controller {
 
 		$data = array('data' => $row,
 							'hash' => $hash,
+							'tarif' =>(int) ($q->tarif) ? $q->tarif : 0,
 		);
 		echo json_encode($data);
 	}

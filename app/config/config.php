@@ -1,7 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$config['base_url'] = "http://".$_SERVER['SERVER_NAME']."/posotv.org";
+// $config['base_url'] = "http://".$_SERVER['SERVER_NAME']."/posotv.org";
+
+$config['base_url'] = (isset($_SERVER['HTTPS']) ? "https://" : "http://").$_SERVER['HTTP_HOST'].
+						str_replace(basename($_SERVER['SCRIPT_NAME']),"",
+						$_SERVER['SCRIPT_NAME']);
 
 $config['index_page'] = '';
 
